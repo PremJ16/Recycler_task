@@ -2,7 +2,9 @@ package com.example.recycler_task.activities;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.recycler_task.R;
 import com.example.recycler_task.helpers.FirebaseHelper;
 import com.example.recycler_task.models.UserModel;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -67,12 +70,17 @@ public class MainActivity extends AppCompatActivity  {
                                 }
 
                             }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getApplicationContext(), "Failure", Toast.LENGTH_SHORT).show();
+                            }
                         });
                     }
 
                     @Override
                     public void onDocumentsReadError(Exception error) {
-
+                        Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
                     }
                 });
 
